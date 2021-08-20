@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/chromedp/cdproto/cdp"
@@ -44,10 +43,7 @@ func (t provider) String() string {
 }
 
 func testSpeed(ctx context.Context, ch chan<- speed.Measures) error {
-	ctx, cancel := chromedp.NewContext(
-		ctx,
-		chromedp.WithLogf(log.Printf),
-	)
+	ctx, cancel := chromedp.NewContext(ctx)
 	defer cancel()
 
 	cmds := []chromedp.Action{

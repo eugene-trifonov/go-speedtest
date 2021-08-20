@@ -96,7 +96,7 @@ func (s Server) dial(ctx context.Context) (net.Conn, error) {
 func GetConfiguration() (config Configuration, err error) {
 	res, err := http.Get("https://www.speedtest.net/speedtest-config.php")
 	if err != nil {
-		return config, errors.New("Error retrieving Speedtest.net configuration: " + err.Error())
+		return config, fmt.Errorf("failed to load configuration: %w", err)
 	}
 	defer res.Body.Close()
 

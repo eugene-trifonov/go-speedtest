@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 	"time"
@@ -39,7 +38,9 @@ func main() {
 		err := speed.Test(ctx, provider, resultCh)
 		if err != nil {
 			fmt.Println()
-			log.Fatalf("failed to run speed test: %v", err)
+			fmt.Printf("failed to run speed test using %s, please check you have an internet connection\n", provider)
+			fmt.Println(err)
+			os.Exit(1)
 		}
 	}()
 
@@ -51,14 +52,14 @@ func main() {
 				running = false
 				break
 			}
-			fmt.Printf("%s: Download speed: %5s %5s, Upload speed: %5s %5s\r",
+			fmt.Printf("%s: Download speed: %6s %4s, Upload speed: %6s %4s\r",
 				provider, measures.Download, measures.DownloadUnit, measures.Upload, measures.UploadUnit)
 
 		case <-ctx.Done():
 			running = false
 
 			// defer - to be sure it won't overwrite speed results
-			defer fmt.Println("Sorry, we reached timeout")
+			defer fmt.Errorf("sorry, we didn't finish test: %w", ctx.Err())
 		}
 	}
 	// to leave the results on terminal, otherwise it's overwritten because of \r
