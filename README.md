@@ -21,7 +21,7 @@ import "github.com/go-speedtest/pkg/netflix"
 public main() {
 	resultCh := make(chan speed.Measures)
 	go func() {
-		err := speed.Test(context.Background(), netflix.Provider, resultCh)
+		err := speed.Test(context.Background(), ookla.Provider, resultCh)
 	}
 
 	for measures := range resultCh {

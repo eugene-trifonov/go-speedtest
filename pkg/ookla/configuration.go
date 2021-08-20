@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net"
 	"net/http"
 	"sort"
@@ -130,7 +129,7 @@ func GetServers(config Configuration) ([]Server, error) {
 	for i := range servers {
 		addr, err := net.ResolveTCPAddr("tcp", servers[i].Host)
 		if err != nil {
-			log.Fatalf("failed to resolve address %q", servers[i].Host)
+			return nil, fmt.Errorf("failed to resolve address %q: %w", servers[i].Host, err)
 		}
 		servers[i].tcpAddr = addr
 
