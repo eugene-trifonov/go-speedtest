@@ -19,7 +19,7 @@ import "github.com/go-speedtest/pkg/speed"
 import "github.com/go-speedtest/pkg/netflix"
 
 func main() {
-	resultCh := make(chan speed.Measures)
+	resultCh := make(chan speed.Measures, 1)
 	go func() {
 		err := speed.Test(context.Background(), ookla.Provider, resultCh)
 	}
