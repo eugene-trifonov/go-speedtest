@@ -6,7 +6,7 @@ Usage
 import "github.com/go-speedtest/pkg/speed"
 import "github.com/go-speedtest/pkg/netflix"
 
-public main() {
+func main() {
 	measures, err := speed.ProviderTest(netflix.Provider)
 }
 ```
@@ -18,7 +18,7 @@ Usage
 import "github.com/go-speedtest/pkg/speed"
 import "github.com/go-speedtest/pkg/netflix"
 
-public main() {
+func main() {
 	resultCh := make(chan speed.Measures)
 	go func() {
 		err := speed.Test(context.Background(), ookla.Provider, resultCh)
